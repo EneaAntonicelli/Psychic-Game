@@ -22,18 +22,18 @@ var answers = []; /*Here we create an open array which we will populate with eac
 
 var lettersLeft = word.length;/*TO DO: understaning this one is a bit difficult for me. What this variable is supposed to do, is keep track of how many letters are yet to be guessed. Every time the player guesses, this variable will be decremented (--i) by 1 for each instance of the letter in the word. */
 
-function greeting() {
-    var name = prompt("What is your dumb name?");
-    var confirmName = confirm("Hello " + name + ". You ready for this shit?");
+function greeting() { /* creating a function that runs through gathering basic data like name and confirmation to play.
+    var name = prompt("What is your dumb name?");/* asks user to input a name */
+    var confirmName = confirm("Hello " + name + ". You ready for this shit?");/*TO DO: I am not sure why this one gets grayed out but it appears to be working...*/
     if (confirm); {
-        alert("This is how many letters we need: " + answers.join(" "));
+        alert("This is how many letters we need: " + answers.join(" "));/*TO DO: I cannot get this to write on screen in the correct spot. I would really like for this to log the spaces somewhere and keep them written; updating on the fly.*/
     }
     
 }
 
-window.onload = function() {
-    document.getElementById("btnstart").onclick = greeting(); 
-    document.getElementById("populate").innerHTML = "Way to go. You won.";
+window.onload = function() { /*Wait for the entire window to load before executing this function*/
+    document.getElementById("btnstart").onclick = greeting(); /*TO DO: I cannot for the life of me get this two lines to work. On button click, execute the greeting function. Why does the greeting function without me setting it off? */
+    document.getElementById("populate").innerHTML = "Way to go. You won."; /*TO DO: This is not writing to the body*/
 }
 
 
