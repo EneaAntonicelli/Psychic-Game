@@ -1,74 +1,244 @@
+var silencer_sound = new Audio("/assets/sounds/silencer.wav");
+var neck_sound = new Audio("/assets/sounds/neck.wav");
+var death_sound = new Audio("/assets/sounds/death.wav");
+var yea_sound = new Audio("/assets/sounds/yea.mp3");
 
-var wins = 0; // Declare the wins variable
+// Game State object containing the state of the game
+var game_state = {
+    won_games: 0,
+    secret: {},
+    displayed_letters: [],
+    attempts_left: 0,
+    total_attempts_allowed: 10,
+    used_letters: [],
+    victory_text: "YOU WIN!",
+    defeat_text: "GAME OVER! ",
+    reset:                function() { alert("reset not implemented"); },
+    update_game_play:     function() { alert("update_game_play not implemented"); },
+    update_game_info:     function() { alert("update_game_info not implemented"); },
+    user_won_game:        function() { alert("user_won_game not implemented"); },
+    user_lost_game:       function() { alert("user_lost_game not implemented"); },
+    letter_used:          function() { alert("letter_used not implemented"); },
+    apply_letter:         function() { alert("apply_letter not implemented"); },
+    process_player_input: function() { alert("process_player_input not implemented"); },
+}
 
-var words = [ /*Here we create an array to store a list of prechosen words. */
-    "madonna",
-    "turdburglar",
-    "perrywinkle",
-    "commando",
-    "ostrich",
-    "avocado"
-]
+// Resets the game with new word and game variables
+game_state.reset = function()
+{
+    this.attempts_left = this.total_attempts_allowed;
+    this.used_letters = [];
 
+    var word_index = Math.floor(Math.random() * secret_words.length);
+    this.secret = secret_words[word_index];
 
-var word = words[Math.floor(Math.random() * words.length)]; /*What this bit of code does is:
-Create a variable container called words. Now, in this container:
- Point to the "words" array and read the code from right to left.
- For the total number of words  being contained inside this array (words.length gives you 6), use the Math.random method. 
-  Math.random give you a random decimal between 0 and 6 but without using 6. In other words, it gives you 6 options (0,1,2,3,4,5)
-  This decimal can be long, and difficult to work with. Thus, we apply the Math.floor method to it. This rounds this decimal DOWN into an integer. Now we have a random number which covers every place in the index.*/
-
-var answers = []; /*Here we create an open array which we will populate with each letter of the randomized word. Initially it will be populated with underscores, and then those underscores will be replaced with letters */
-
-var lettersLeft = word.length;/*TO DO: understaning this one is a bit difficult for me. What this variable is supposed to do, is keep track of how many letters are yet to be guessed. Every time the player guesses, this variable will be decremented (--i) by 1 for each instance of the letter in the word. */
-
-function greeting() { /* creating a function that runs through gathering basic data like name and confirmation to play.
-    var name = prompt("What is your dumb name?");/* asks user to input a name */
-    var confirmName = confirm("Hello " + name + ". You ready for this shit?");/*TO DO: I am not sure why this one gets grayed out but it appears to be working...*/
-    if (confirm); {
-        alert("This is how many letters we need: " + answers.join(" "));/*TO DO: I cannot get this to write on screen in the correct spot. I would really like for this to log the spaces somewhere and keep them written; updating on the fly.*/
+    this.displayed_letters = [];
+    for (var i = 0; i < this.secret.word.length; i++)
+    {
+        if (this.secret.word[i] === " ")
+        {
+            this.displayed_letters.push(" ");
+        }
+        else
+        {
+            this.displayed_letters.push("_");
+        }
     }
-    
 }
 
-window.onload = function() { /*Wait for the entire window to load before executing this function*/
-    document.getElementById("btnstart").onclick = greeting(); /*TO DO: I cannot for the life of me get this two lines to work. On button click, execute the greeting function. Why does the greeting function without me setting it off? */
-    document.getElementById("populate").innerHTML = "Way to go. You won."; /*TO DO: This is not writing to the body*/
+// Updates the document text with current game 
+// play section with the number of wins, remaining
+// attempts, the correctly guessed letters and the
+// letters that have been used so far.
+game_state.update_game_play = function()
+{
+    document.getElementById("wins-indicator").textContent = "Wins: " + this.won_games;
+
+    document.getElementById("guesses-indicator").textContent = this.attempts_left;
+
+    var displayed_word_string = "";
+    for (var i = 0; i < this.displayed_letters.length; i++)
+    {
+        displayed_word_string += this.displayed_letters[i];
+    }
+    document.getElementById("word-entry").textContent = displayed_word_string;
+
+    var used_letters_string = "";
+    for (var i = 0; i < this.used_letters.length; i++)
+    {
+        used_letters_string += this.used_letters[i] + " ";
+    }
+    document.getElementById("guessed-letters").textContent = used_letters_string;
 }
 
+// Updates the game info section with a victory or
+// defeat message and displays the secret word along
+// with a description and image of the character.
+game_state.update_game_info = function(win_or_lost_msg)
+{
+    var game_text = win_or_lost_msg + " ";
+    game_text += this.secret.word + ": ";
+    game_text += this.secret.description;
+    document.getElementById("game-text").textContent = game_text;
 
-
-for (var i = 0; i < word.length; i++) { /*We need to know how many underscores or letters will correspond to the randomized word. We do this by establishing a simple loop. We take the value of how many times we would like for it to loop from the length of letters in the randomized word. (word.length) Notice how this reference to "word" does not have an "s" at the end. "words" would reference the array. */
-
-    answers[i] = "_";/* Now we take each iteration of the loop, and add it to the array above as an underscore */
+    document.getElementById("superhero-img").src = this.secret.image;
 }
 
+// Check if user won the game by seeing if there
+// are any remaining blanks/underscores
+game_state.user_won_game = function()
+{
+    for (var i = 0; i < this.displayed_letters.length; i++)
+    {
+        if (this.displayed_letters[i] === '_')
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
-while (lettersLeft > 0) {
-    /*The entire game code will occupy this area. We use a while loop because we are making the declaration that so long as the letters left are greater than 0, the game will continue. Once this number hits 0, it will return false, and the loop will cease to function.*/
-    document.getElementById("lead").innerHTML = placeHolders; /*What this line does is say: Alert the user with something that takes each of the items in the "answers" array, and concatinate them as strings. Furthermore, separate them with a space. So right off the bat, say the word was "commando"; this line of code would show "_ _ _ _ _ _ _ _". If we had already guessed the letters "m, a, and c" this would show "C _ M M A_ _ _". */
-    var guess = prompt("Guess a letter, you sack of swine.");
-    if (guess === null) {/*First thing to get out of the way, is if the player selects cancel. If this happens, Javascript will immediately return a "null". So here, we use the break method in order to quit the game.*/
-        break;
-    } else if (guess.length !== 1) { /* Else if the guess length does not = 1, meaning the player types too many words in, then alert the following */
-        alert("Enter 1 letter dude.. Have you never played hangman? wtf.")
-    } else { /* For everything else, there is Mastercard. */
-        for (var j = 0; j < word.length; j++) {/*create a new loop that will run for as many letters as there are in the randomized word */
-            answers[j] = guess;/* TO DO: I dont know how this does what it does but it do*/
-            lettersLeft--;/*From remaining letters, subtract 1. Meaning, for every correct guess, decrement this value by one.*/
-        } // For loop end
-    } // Else end 
-} // While Loop end 
-// Start end
-document.getElementById("lead").innerHTML(answers.join(" "));
-document.getElementById("lead").innerHTML("Good job nerd! The answer was " + word);
+// Check if user lost the game (what a loser!)
+game_state.user_lost_game = function()
+{
+    return this.attempts_left === 0;
+}
+
+// Check if the letter has already been used
+game_state.letter_used = function(letter)
+{
+    for (var i = 0; i < this.used_letters.length; i++)
+    {
+        if (letter === this.used_letters[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Attempts to apply the guessed letter
+// If the letter was correctly guessed,
+// returns true and updates the displayed letters
+// If the letter isn't in the secret word,
+// returns false
+game_state.apply_letter = function(letter)
+{
+    var did_swap = false;
+    for (var i = 0; i < this.secret.word.length; i++)
+    {
+        if (letter === this.secret.word[i])
+        {
+            this.displayed_letters[i] = letter;
+            did_swap = true;
+        }
+    }
+    return did_swap;
+}
+
+// Processes the players guess, checks if the letter
+// was already used and, if so, tries to apply it.
+// After that, determines if the player has already won
+// or lost the game and updates the game information.
+game_state.process_player_input = function(letter)
+{
+    if (!this.letter_used(letter))
+    {
+        this.used_letters.push(letter);
+
+        // Try to apply the letter to the secret.
+        // If fail, reduce the number of attempts left.
+        if (this.apply_letter(letter))
+        {
+            silencer_sound.play();
+        }
+        else
+        {
+            neck_sound.play();
+            this.attempts_left -= 1;
+        }
+
+        if (this.user_won_game())
+        {
+            yea_sound.play();
+            this.won_games += 1;
+            this.update_game_info(this.victory_text);
+            this.reset();
+        }
+        else if (this.user_lost_game())
+        {
+            death_sound.play();
+            this.update_game_info(this.defeat_text);
+            this.reset();
+        }
+
+        this.update_game_play();
+    }
+}
+
+// Check if text is letter or number
+function is_letter_or_number(text)
+{
+    var letterNumber = /^[0-9a-zA-Z]$/;
+    if(text.match(letterNumber)) 
+    {
+        return true;
+    }
+    else
+    { 
+        return false; 
+    }
+}
+
+function game_input(event)
+{
+    var letter = event.key.toUpperCase();
+    console.log("User entered: " + letter);
+    if (is_letter_or_number(letter))
+    { 
+        game_state.process_player_input(letter);
+    }
+}
+
+// Grab keystrokes and apply them to the game
+document.onkeyup = game_input;
+
+document.getElementById("hidden-input").addEventListener("keydown", game_input); 
+
+// Initialize the game and display
+game_state.reset();
+game_state.update_game_play();
+
+// $(document).ready(function() { //First it loads the page and then it executes the javascript
+
+    var superhero = $("#superhero-img");
+// Size Buttons
+$(".normal-button").on("click", function() {
+    superhero.animate({ height: "300px" });
+  });
+  $(".grow-button").on("click", function() {
+    superhero.animate({ height: "500px" });
+  });
+  $(".shrink-button").on("click", function() {
+    superhero.animate({ height: "100px" });
+  });
+// });
 
 
 
 
-// window.onload = myFunction() {
-//     document.btn.onclick = function myFunction();
-// };
-    /*var name = prompt("What is your dumb name?");
-    var confirmname = confirm("Hello " + name +". You ready for this shit?");*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
