@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>HANGMAN Game </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Wire+One" rel="stylesheet">
-    
+
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <header class="col-md-12">
-                <h1 id="header-title">Enea's Hangman Game</h1>
+                <h1 id="header-title">GUESS THE SUPER-HERO</h1>
                 <h2 id="header-subtitle">Comic Book Character Edition</h2>
             </header>
         </div>
@@ -29,10 +29,17 @@
                     Comic Book Characters
                 </p>
                 <img id="superhero-img" src="/assets/images/deadpool.jpg" alt="Image of Super-Heros">
+                <div class="row" id="superhero-buttons">
+                    <button class="normal-button">RESET</button>
+                    <button class="grow-button">GROW</button>
+                    <button class="shrink-button">SHRINK</button>
+                    <button>INVISIBILITY</button>
+                    <button>VISIBILITY</button>
+                </div>
             </section>
             <section class="col-md-6" id="game-play-section">
-                    <img id="background-img" src="/assets/images/background.jpg" alt="backgrund-image-thor-hammer">
-                <p>PRESS ENTER TO BEGIN!</p>
+                <img id="background-img" src="/assets/images/background.jpg" alt="backgrund-image-thor-hammer">
+                <p id="first-paragraph">PRESS ENTER TO BEGIN!</p>
                 <p id="wins-indicator">WINS: 0</p>
                 <p>CURRENT WORD:</p>
                 <p id="word-entry">_______</p>
@@ -42,26 +49,20 @@
                 <p id="guessed-letters"></p>
             </section>
         </div>
-        <div class="row" id="superhero-buttons">
-            <button class="normal-button">RESET</button>
-            <button class="grow-button">GROW</button>
-            <button class="shrink-button">SHRINK</button>
-            <button>INVISIBILITY</button>
-            <button>VISIBILITY</button>
-        </div>
+
     </div>
     <div id="spacer">
 
     </div>
     <footer>
-        <p>Github:  
+        <p>Github:
             <a href="https://eneaantonicelli.github.io">https://eneaantonicelli.github.io</a>
         </p>
     </footer>
     <input id="hidden-input">
     <script src="/assets/javascript/secrets.js"></script>
     <script src="/assets/javascript/game.js"></script>
-    
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
