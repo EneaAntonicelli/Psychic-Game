@@ -1,11 +1,15 @@
-var silencer_sound = new Audio("/assets/sounds/silencer.wav");
-var neck_sound = new Audio("/assets/sounds/neck.wav");
-var death_sound = new Audio("/assets/sounds/death.wav");
-var yea_sound = new Audio("/assets/sounds/yea.mp3");
+// $(document).ready(function() { //First it loads the page and then it executes the javascript
+
+var silencer_sound = new Audio("assets/sounds/silencer.wav");
+var neck_sound = new Audio("assets/sounds/neck.wav");
+var death_sound = new Audio("assets/sounds/death.wav");
+var yea_sound = new Audio("assets/sounds/yea.mp3");
+var superhero = document.getElementById("superhero-img");
 
 // Game State object containing the state of the game
 var game_state = {
     won_games: 0,
+    lost_games: 0,
     secret: {},
     displayed_letters: [],
     attempts_left: 0,
@@ -53,6 +57,7 @@ game_state.reset = function()
 game_state.update_game_play = function()
 {
     document.getElementById("wins-indicator").textContent = "Wins: " + this.won_games;
+    document.getElementById("loss-indicator").textContent = "Losses: " + this.lost_games;
 
     document.getElementById("guesses-indicator").textContent = this.attempts_left;
 
@@ -163,13 +168,21 @@ game_state.process_player_input = function(letter)
             yea_sound.play();
             this.won_games += 1;
             this.update_game_info(this.victory_text);
+            document.getElementById("gameover").style.visibility = "hidden";
             this.reset();
         }
         else if (this.user_lost_game())
         {
             death_sound.play();
+            this.lost_games += 1;
             this.update_game_info(this.defeat_text);
+            document.getElementById("gameover").style.visibility = "visible";
+            // var delay = function(){
+            //     document.getElementById("gameover").delay(400).visibility = "hidden";
+            // }
+            // delay();
             this.reset();
+            setTimeout(function() { document.getElementById("gameover").style.visibility = "hidden";}, 3000);
         }
 
         this.update_game_play();
@@ -209,19 +222,21 @@ document.getElementById("hidden-input").addEventListener("keydown", game_input);
 game_state.reset();
 game_state.update_game_play();
 
-// $(document).ready(function() { //First it loads the page and then it executes the javascript
 
-    var superhero = $("#superhero-img");
+
+    
 // Size Buttons
-$(".normal-button").on("click", function() {
+$("#normal-button").on("click", function() {
     superhero.animate({ height: "300px" });
-  });
-  $(".grow-button").on("click", function() {
+});
+
+$("#grow-button").on("click", function() {
     superhero.animate({ height: "500px" });
-  });
-  $(".shrink-button").on("click", function() {
+});
+
+$("#shrink-button").on("click", function() {
     superhero.animate({ height: "100px" });
-  });
+});
 // });
 
 

@@ -39,4 +39,29 @@ secret_words = [
         image: "assets/images/juggernaut.png",
         description: "Cain Marko, also known as the Juggernaut, is the step-brother of X-Men founder Charles Xavier and the avatar of Cyttorak. Powered by the Crimson Gem of Cyttorak, Marko is bestowed virtually limitless brute strength and durability which he mostly uses for criminal pursuits and wanton destruction. The Juggernaut is considered one of the strongest and most powerful beings on Earth."
     },
+    {
+        word: "APOCALYPSE",
+        image: "assets/images/apocalypse.png",
+        description: "Worshiped as a god since the dawn of civilization, the immortal Apocalypse is the first and most powerful mutant. "
+    },
+    {
+        word: "BEAST",
+        image: "assets/images/beast.png",
+        description: "A founding member of the X-Men, Dr. Hank McCoy is a mutant possessing animal-like strength and agility. Despite being covered in blue fur and resembling a ferocious beast, Hank possesses an astounding intellect and a superb wit. He is currently helping run the Jean Grey School, while also serving with the Avengers."
+    },
+    {
+        word: "VENOM",
+        image: "assets/images/venom2.png",
+        description: "The Venom symbiote bonded with Spider-Man during his adventure in the first Secret Wars on the Beyonder's makeshift planet called Battleworld. Initially, he thought the symbiote was just a costume. However upon his discovery that it was sentient, he rejected it. Since then, the symbiote has bonded with several different hosts."
+    },
+    {
+        word: "GREYHULK",
+        image: "assets/images/greyhulk.jpg",
+        description: "Grey Hulk is the original Hulk. Stan Lee wanted the Hulk to be grey but due to ink problems, Hulk's color was changed to green. This was explained by saying that the Grey Hulk persona and the Green Hulk persona are battling in  Bruce Banner's sub-conscious."
+    },
+    {
+        word: "OMEGARED",
+        image: "assets/images/omegared.jpg",
+        description: "During the Cold War, Arkady Rossovich was forced into a Soviet version of the Weapon X program in order to become a Russian super soldier. The result of this experiment was the deadly Omega Red."
+    },
 ];
