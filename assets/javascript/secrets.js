@@ -51,7 +51,7 @@ var secret_words = [
     },
     {
         word: "VENOM",
-        image: "assets/images/venom2.png",
+        image: "assets/images/venom2.png", //adding this comment because github is not letting me update. it is telling me no changes were made.
         description: "The Venom symbiote bonded with Spider-Man during his adventure in the first Secret Wars on the Beyonder's makeshift planet called Battleworld. Initially, he thought the symbiote was just a costume. However upon his discovery that it was sentient, he rejected it. Since then, the symbiote has bonded with several different hosts."
     },
     {
