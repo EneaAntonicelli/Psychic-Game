@@ -1,4 +1,4 @@
-secret_words = [
+var secret_words = [
     {
         word: "WOLVERINE",
         image: "assets/images/wolverine.jpg",
@@ -11,7 +11,7 @@ secret_words = [
     },
     {
         word: "DEADPOOL",
-        image: "assets/images/deadpool.jpg",
+        image: "assets/images/deadpool2.png",
         description: "He’s murdered the entire Marvel universe. He’s wielded the Infinity Gauntlet…only to use it for a Friar’s Club-style roast in his honor. He has battled zombified version of nearly every United States president. And his undying love of Mexican food—specifically those deep-fried delectables known as chimichangas—is rivaled only by his adoration of Golden Girls star Bea Arthur. Who is this international man of mayhem, mischief, and mystery? Why, it’s Deadpool, of course!"
     },
     {

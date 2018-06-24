@@ -62,6 +62,7 @@ header h2 {
 
 button {
     margin: 0px 5px;
+    z-index: 10;
 }
 #first-paragraph {
     margin-top: 20px;
@@ -84,7 +85,7 @@ footer {
     text-align: center;
     z-index: -1;
 }
-a {
+a, #githublink {
     z-index: 999;
 }
 
@@ -102,6 +103,7 @@ a {
     footer {
         position: relative;
         bottom: 0;
+        z-index: 100;
     }
 }
 
